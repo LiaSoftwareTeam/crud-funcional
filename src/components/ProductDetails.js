@@ -51,4 +51,4 @@ const ProductDetails = ({ product }) => {
   );
 };
 
-export default ProductDetails;
+export default ProductDetails;"// Correcci¢n en el formato de fecha del producto" 
