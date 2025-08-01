@@ -75,4 +75,4 @@ const DeleteConfirmationModal = ({ isOpen, onClose, product }) => {
   );
 };
 
-export default DeleteConfirmationModal;
+export default DeleteConfirmationModal;"// Validaci¢n agregada al modal de confirmaci¢n de eliminaci¢n" 
