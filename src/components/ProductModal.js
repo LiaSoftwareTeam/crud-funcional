@@ -4,7 +4,7 @@ import { db } from '../firebase/config';
 import { collection, addDoc, doc, updateDoc } from 'firebase/firestore';
 import { FaTimes } from 'react-icons/fa';
 import styles from './ProductModal.module.css';
-
+ 
 // Establecer el elemento raíz de la aplicación para el modal
 if (typeof window !== 'undefined') {
   Modal.setAppElement('body');
