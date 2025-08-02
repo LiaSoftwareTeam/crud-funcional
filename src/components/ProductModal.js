@@ -207,5 +207,4 @@ const ProductModal = ({ isOpen, onClose, product, isEditing }) => {
   );
 };
 
-export default ProductModal;"// Estilos mejorados del modal de producto" 
-"// Mejora de estilos en el modal de producto" 
+export default ProductModal;
