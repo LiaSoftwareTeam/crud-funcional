@@ -7,8 +7,10 @@ import { collection, getDocs, query, orderBy } from 'firebase/firestore';
 import ProductModal from '../components/ProductModal';
 import DeleteConfirmationModal from '../components/DeleteConfirmationModal';
 import ProductDetails from '../components/ProductDetails';
+import Toolbar from '../components/Toolbar';
+import LoginModal from '../components/LoginModal';
 import styles from '../styles/ProductTable.module.css';
-import { FaPlus, FaEye, FaEdit, FaTrash, FaBox, FaSearch } from 'react-icons/fa';
+import { FaPlus, FaEye, FaEdit, FaTrash, FaBox, FaSearch, FaTimes } from 'react-icons/fa';
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -19,9 +21,11 @@ export default function Home() {
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // Simulamos que el usuario ya está logueado
 
   // Cargar productos desde Firestore
   const fetchProducts = async () => {
@@ -115,10 +119,28 @@ export default function Home() {
     setIsViewModalOpen(false);
   };
 
+  // Abrir modal de inicio de sesión
+  const handleLoginClick = () => {
+    setIsLoginModalOpen(true);
+  };
+
+  // Cerrar modal de inicio de sesión
+  const handleCloseLoginModal = (loggedIn) => {
+    setIsLoginModalOpen(false);
+    if (loggedIn) {
+      setIsLoggedIn(true);
+    }
+  };
+
   return (
     <div className={styles.container}>
+      <Toolbar 
+        username={isLoggedIn ? 'Josias Peguero' : null}
+        onLoginClick={handleLoginClick}
+      />
+      
       <div className={styles.header}>
-        <h1 className={styles.title}>Tienda - Josias Peguero</h1>
+        <h1 className={styles.title}>Productos</h1>
         <button className={styles.addButton} onClick={handleAddProduct}>
           <FaPlus className={styles.addButtonIcon} /> Agregar Producto
         </button>
@@ -247,12 +269,18 @@ export default function Home() {
         <div className={styles.viewModalOverlay} onClick={handleCloseViewModal}>
           <div className={styles.viewModalContent} onClick={(e) => e.stopPropagation()}>
             <button className={styles.closeViewButton} onClick={handleCloseViewModal}>
-              <FaPlus />
+              <FaTimes />
             </button>
             <ProductDetails product={selectedProduct} />
           </div>
         </div>
       )}
+
+      {/* Modal de inicio de sesión */}
+      <LoginModal 
+        isOpen={isLoginModalOpen}
+        onClose={handleCloseLoginModal}
+      />
     </div>
   );
 }
